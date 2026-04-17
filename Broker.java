@@ -1,6 +1,6 @@
 public class Broker extends Thread {
 
-    private int totalEventos;          // suma de todos los eventos que generarán los sensores
+    private int totalEventos;         
     private BuzonIlimitado buzonEntrada;
     private BuzonIlimitado buzonAlertas;
     private BuzonLimitado  buzonClasificacion;
@@ -27,17 +27,14 @@ public class Broker extends Thread {
                 int random = (int)(Math.random() * 201);
 
                 if (random % 8 == 0) {
-                    // Evento anómalo → va al buzón de alertas
                     buzonAlertas.depositar(evento);
                     System.out.println("Broker → ALERTA: " + evento);
                 } else {
-                    // Evento normal → va al buzón de clasificación
                     buzonClasificacion.depositar(evento);
                     System.out.println("Broker → CLASIFICACIÓN: " + evento);
                 }
             }
 
-            // Ya procesó todo → manda evento de fin al Administrador
             buzonAlertas.depositar(new Evento());
             System.out.println("Broker terminó. Envió evento de FIN al Administrador.");
 

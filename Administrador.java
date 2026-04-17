@@ -1,6 +1,6 @@
 public class Administrador extends Thread {
 
-    private int nc; // número de clasificadores → necesita enviarles nc eventos de fin
+    private int nc; // num de clasificadores
     private BuzonIlimitado buzonAlertas;
     private BuzonLimitado  buzonClasificacion;
 
@@ -20,7 +20,7 @@ public class Administrador extends Thread {
                 // Espera pasiva: se duerme si el buzón de alertas está vacío
                 Evento evento = buzonAlertas.retirar();
 
-                // Si es evento de fin → terminar
+                // Si es evento de fin se termina
                 if (evento.esEventoFin()) {
                     System.out.println("Administrador recibió FIN. Avisando a clasificadores...");
 
@@ -36,11 +36,11 @@ public class Administrador extends Thread {
                 int random = (int)(Math.random() * 21);
 
                 if (random % 4 == 0) {
-                    // Inofensivo → lo rescata y envía a clasificación
+                    // Inofensivo
                     buzonClasificacion.depositar(evento);
                     System.out.println("Administrador rescató: " + evento);
                 } else {
-                    // Malicioso → descartado
+                    // Malicioso
                     System.out.println("Administrador descartó: " + evento);
                 }
             }
